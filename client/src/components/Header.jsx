@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { assets } from "../assets/data";
 import Navbar from "./Navbar";
+import { useUser, useClerk, UserButton } from "@clerk/clerk-react";
+import { ScrollText } from "lucide-react";
 
 const Header = () => {
   const [menuOpened, setMenuOpened] = useState(false);
   const [active, setActive] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const location = useLocation();
+  const { user } = useUser();
+  const { openSignIn } = useClerk();
+  const navigate = useNavigate();
 
   const isHomePage = location.pathname.endsWith("/");
 
@@ -107,13 +112,35 @@ const Header = () => {
               )}
             </>
             {/* User Profile */}
-            <div>
-              <div>
-                <button className="btn-solid bg-black flexCenter gap-2 rounded-full">
+            <div className="group mt-1.5 mr-2">
+              {user ? (
+                <UserButton
+                  appearance={{
+                    elements: {
+                      userButtonAvatarBox: {
+                        width: "42px",
+                        height: "42px",
+                      },
+                    },
+                  }}
+                >
+                  <UserButton.MenuItems>
+                    <UserButton.Action
+                      label="My Bookings"
+                      labelIcon={<ScrollText size={14} />}
+                      onClick={() => navigate("/my-bookings")}
+                    />
+                  </UserButton.MenuItems>
+                </UserButton>
+              ) : (
+                <button
+                  onClick={openSignIn}
+                  className="btn-solid bg-black flexCenter gap-2 rounded-full"
+                >
                   Login
                   <img src={assets.user} alt="userIcon" className="invert" />
                 </button>
-              </div>
+              )}
             </div>
           </div>
         </div>
