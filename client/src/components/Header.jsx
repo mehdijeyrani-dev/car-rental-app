@@ -89,21 +89,32 @@ const Header = () => {
               </div>
             </div>
             {/* Menu Toggle */}
-            {menuOpened ? (
-              <img
-                src={assets.close}
-                onClick={toggleMenu}
-                alt=""
-                className={`lg:hidden cursor-pointer text-xl`}
-              />
-            ) : (
-              <img
-                src={assets.menu}
-                onClick={toggleMenu}
-                alt=""
-                className={`lg:hidden cursor-pointer text-xl`}
-              />
-            )}
+            <>
+              {menuOpened ? (
+                <img
+                  src={assets.close}
+                  onClick={toggleMenu}
+                  alt=""
+                  className={`lg:hidden cursor-pointer text-xl`}
+                />
+              ) : (
+                <img
+                  src={assets.menu}
+                  onClick={toggleMenu}
+                  alt=""
+                  className={`lg:hidden cursor-pointer text-xl`}
+                />
+              )}
+            </>
+            {/* User Profile */}
+            <div>
+              <div>
+                <button className="btn-solid bg-black flexCenter gap-2 rounded-full">
+                  Login
+                  <img src={assets.user} alt="userIcon" className="invert" />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
